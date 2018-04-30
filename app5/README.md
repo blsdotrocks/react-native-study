@@ -1,0 +1,1 @@
+# app de uma empresa ficticia criado para estudos do navigator e react/react-native

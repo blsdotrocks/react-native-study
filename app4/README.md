@@ -1,0 +1,1 @@
+# app de lista de itens criado para estudos do react/react-native e requisições rest utilizando o axios

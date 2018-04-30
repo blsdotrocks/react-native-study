@@ -1,0 +1,1 @@
+# app para estudos de autenticaçãõ entre react/react-native e firebase

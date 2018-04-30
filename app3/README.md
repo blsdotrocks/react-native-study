@@ -1,0 +1,1 @@
+# app do jogo papel, papel e tesoura criado para estudos do react/react-native

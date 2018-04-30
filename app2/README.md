@@ -1,0 +1,1 @@
+# app de frases do dia criado para estudos do react/react-native

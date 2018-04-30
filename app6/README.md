@@ -1,0 +1,1 @@
+# app do jogo cara e coroa criado para estudos do react-native-router-flux e react/react-native

@@ -1,0 +1,1 @@
+# app de calculadora criado para estudos de react/react-native e conexão entre seus componentes 

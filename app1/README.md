@@ -1,0 +1,1 @@
+# app de números aleatórios criado para estudos do react/react-native
