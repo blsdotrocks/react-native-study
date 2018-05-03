@@ -1,69 +1,109 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	View,
 	Text,
 	TextInput,
 	Button,
 	StyleSheet,
-	TouchableOpacity
+	TouchableOpacity,
+	ImageBackground,
+	ActivityIndicator
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
-import {modificaEmail, modificaSenha} from '../actions/AutenticacaoActions';
+import {
+	modificaEmail,
+	modificaSenha,
+	autenticarUsuario
+} from '../actions/AutenticacaoActions';
 
-const formLogin = props => (
-	<View style={styles.container}>
-		<View style={styles.containerTitle}>
-			<Text style={styles.titleLogin}>whatsapp clone</Text>
-		</View>
-		<View style={styles.containerInput}>
-			<TextInput
-				value={props.email}
-				style={styles.form}
-				placeholder='E-mail'
-				keyboardType='email-address'
-				onChangeText={input => props.modificaEmail(input)}
-			/>
-			<TextInput
-				value={props.senha}
-				style={styles.form}
-				placeholder='Senha'
-				secureTextEntry
-				onChangeText={input => props.modificaSenha(input)}
-			/>
-			<TouchableOpacity
-				onPress={() => {Actions.cadastro();}}
-			>
-				<Text style={styles.textLogin}>Ainda não possui cadastro? Cadastre-se</Text>
-			</TouchableOpacity>
-		</View>
-		<View style={styles.containerButton}>
+class formLogin extends Component {
+	_autenticarUsuario() {
+		const {email, senha} = this.props;
+		this.props.autenticarUsuario({email, senha});
+	}
+
+	renderButtonAcessar() {
+		if(this.props.loadingLogin) {
+			return (
+				<ActivityIndicator size='large'/>
+			)
+		}
+
+		return (
 			<Button
 				title='Acessar'
 				color='#115e54'
-				onPress={() => {false}}
+				onPress={() => this._autenticarUsuario()}
 			/>
-		</View>
-	</View>
-);
+		);
+	}
+
+	render() {
+		return (
+			<ImageBackground style={styles.bg} source={require('../imgs/bg.png')}>
+				<View style={styles.container}>
+					<View style={styles.containerTitle}>
+						<Text style={styles.titleLogin}>whatsapp clone</Text>
+					</View>
+					<View style={styles.containerInput}>
+						<TextInput
+							value={this.props.email}
+							style={styles.form}
+							placeholder='E-mail'
+							keyboardType='email-address'
+							placeholderTextColor='#fff'
+							onChangeText={input => this.props.modificaEmail(input)}
+						/>
+						<TextInput
+							value={this.props.senha}
+							style={styles.form}
+							placeholder='Senha'
+							secureTextEntry
+							placeholderTextColor='#fff'
+							onChangeText={input => this.props.modificaSenha(input)}
+						/>
+						<Text style={styles.error}>{this.props.erroLogin}</Text>
+						<TouchableOpacity
+							onPress={() => {Actions.cadastro();}}
+							style={styles.button}
+						>
+							<Text style={styles.textLogin}>Ainda não possui cadastro? Cadastre-se</Text>
+						</TouchableOpacity>
+					</View>
+					<View style={styles.containerButton}>
+						{this.renderButtonAcessar()}
+					</View>
+				</View>
+			</ImageBackground>
+		);
+	}
+}
 
 const mapStateToProps = state => (
 	{
 		email: state.AutenticacaoReducer.email,
-		senha: state.AutenticacaoReducer.senha
+		senha: state.AutenticacaoReducer.senha,
+		erroLogin: state.AutenticacaoReducer.erroLogin,
+		loadingLogin: state.AutenticacaoReducer.loadingLogin
 	}
 );
 
 export default connect(mapStateToProps, {
 	modificaEmail,
-	modificaSenha
+	modificaSenha,
+	autenticarUsuario
 })(formLogin);
 
 const styles = StyleSheet.create({
+	bg: {
+		flex: 1
+	},
+
 	container: {
 		flex: 1,
-		padding: 10
+		padding: 15
 	},
 
 	containerTitle: {
@@ -73,16 +113,31 @@ const styles = StyleSheet.create({
 	},
 
 	titleLogin: {
-		fontSize: 25
+		fontSize: 25,
+		color: '#fff'
 	},
 
 	form: {
-		fontSize: 20,
-		height: 45
+		fontSize: 15,
+		height: 45,
+		color: '#fff'
+	},
+
+	error: {
+		fontSize: 15,
+		color: '#fff',
+		textAlign: 'center',
+		marginTop: 25
+	},
+
+	button: {
+		alignItems: 'center',
+		marginTop: 25
 	},
 
 	textLogin: {
-		fontSize: 20
+		fontSize: 15,
+		color: '#fff'
 	},
 
 	containerInput: {
