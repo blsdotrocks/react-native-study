@@ -5,5 +5,6 @@ export const CADASTRO_USUARIO_SUCESSO = 'cadastro_usuario_sucesso';
 export const CADASTRO_USUARIO_ERROR = 'cadastro_usuario_error';
 export const LOGIN_SUCESSO = 'login_sucesso';
 export const LOGIN_ERROR = 'login_error';
-export const LOGIN_EM_ANDAMENTO = 'login_em_andamento;'
+export const LOGIN_EM_ANDAMENTO = 'login_em_andamento;';
 export const CADASTRO_EM_ANDAMENTO = 'cadastro_em_andamento';
+export const CONTATO_EMAIL = 'contato_email';
