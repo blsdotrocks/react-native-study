@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import b64 from 'base-64';
 import {
   MODIFICA_EMAIL,
@@ -10,31 +10,31 @@ import {
   LOGIN_SUCESSO,
   LOGIN_ERROR,
   LOGIN_EM_ANDAMENTO,
-  CADASTRO_EM_ANDAMENTO
+  CADASTRO_EM_ANDAMENTO,
 } from './types';
 
 export const modificaEmail = (input) => {
   return {
     type: MODIFICA_EMAIL,
-    payload: input
-  }
-}
+    payload: input,
+  };
+};
 
 export const modificaSenha = (input) => {
   return {
     type: MODIFICA_SENHA,
-    payload: input
-  }
-}
+    payload: input,
+  };
+};
 
 export const modificaNome = (input) => {
   return {
     type: MODIFICA_NOME,
-    payload: input
-  }
-}
+    payload: input,
+  };
+};
 
-export const cadastrarUsuario = ({nome, email, senha}) => {
+export const cadastrarUsuario = ({ nome, email, senha }) => {
   return dispatch => {
     dispatch({type: CADASTRO_EM_ANDAMENTO});
     firebase.auth().createUserWithEmailAndPassword(email, senha)
@@ -68,19 +68,19 @@ export const autenticarUsuario = ({email, senha}) => {
     firebase.auth().signInWithEmailAndPassword(email, senha)
     .then(value => loginSucesso(dispatch))
     .catch(error => loginErro(error, dispatch));
-  }
-}
+  };
+};
 
 const loginSucesso = (dispatch) => {
   dispatch({
-    type: LOGIN_SUCESSO
+    type: LOGIN_SUCESSO,
   });
   Actions.principal();
-}
+};
 
 const loginErro = (error, dispatch) => {
   dispatch({
     type: LOGIN_ERROR,
-    payload: error.message
+    payload: error.message,
   });
-}
+};
