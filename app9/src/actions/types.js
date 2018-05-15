@@ -8,3 +8,5 @@ export const LOGIN_ERROR = 'login_error';
 export const LOGIN_EM_ANDAMENTO = 'login_em_andamento;';
 export const CADASTRO_EM_ANDAMENTO = 'cadastro_em_andamento';
 export const CONTATO_EMAIL = 'contato_email';
+export const ADICIONA_CONTATO_ERRO = 'adiciona_contato_erro';
+export const ADICIONA_CONTATO_SUCESSO = 'adiciona_contato_sucesso';
