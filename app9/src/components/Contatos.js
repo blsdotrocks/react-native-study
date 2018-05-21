@@ -3,8 +3,10 @@ import {
   View,
   Text,
   ListView,
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
+import {Actions} from 'react-native-router-flux';
 import _ from 'lodash';
 import { contatosUsuarioFetch } from '../actions/AppActions';
 
@@ -23,18 +25,24 @@ class Contatos extends Component {
     this.fonteDeDados = ds.cloneWithRows(contatos);
   }
 
+  renderRow(contato) {
+    return (
+      <TouchableOpacity onPress={() => Actions.conversa()}>
+        <View style={{ flex: 1, padding: 20, borderBottomWidth: 1, borderColor: "#ccc" }}>
+          <Text style={{ fontSize: 25 }}>{contato.nome}</Text>
+          <Text style={{ fontSize: 18 }}>{contato.email}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     return (
       <View>
         <ListView
           enableEmptySections
           dataSource={this.fonteDeDados}
-          renderRow={data => (
-            <View>
-              <Text>{data.nome}</Text>
-              <Text>{data.email}</Text>
-            </View>
-          )}
+          renderRow={data => this.renderRow(data)}
         />
       </View>
     );
